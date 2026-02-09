@@ -697,9 +697,18 @@
         }
 
         function handleNo() {
-            const response = document.getElementById('response');
-            response.innerHTML = '💔 Może jeszcze przemyślisz?<br><small style="font-size: 18px; margin-top: 10px; display: block;">Przycisk "Tak" wciąż czeka...</small>';
-            response.classList.add('show');
+            const noBtn = document.querySelector('.no-btn');
+            const currentScale = parseFloat(noBtn.dataset.scale || '1');
+            const newScale = currentScale * 0.8;
+            
+            noBtn.dataset.scale = newScale;
+            noBtn.style.transform = `translateY(-2px) scale(${newScale})`;
+            
+            // If button gets too small, make it disappear
+            if (newScale < 0.2) {
+                noBtn.style.opacity = '0';
+                noBtn.style.pointerEvents = 'none';
+            }
         }
     </script>
 </body>
